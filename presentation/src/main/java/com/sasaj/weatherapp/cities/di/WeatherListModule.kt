@@ -1,8 +1,8 @@
-package com.sasaj.weatherapp.citieslist.di
+package com.sasaj.weatherapp.cities.di
 
 import com.sasaj.domain.WeatherRepository
 import com.sasaj.domain.usecases.GetCitiesUseCase
-import com.sasaj.weatherapp.citieslist.MainVMFactory
+import com.sasaj.weatherapp.cities.MainVMFactory
 import com.sasaj.weatherapp.common.ASyncTransformer
 import dagger.Module
 import dagger.Provides

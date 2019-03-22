@@ -1,8 +1,8 @@
-package com.sasaj.weatherapp.citieslist.di
+package com.sasaj.weatherapp.citydetails.di
 
 import javax.inject.Scope
 
 
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-annotation class ListScope
+annotation class DetailsScope

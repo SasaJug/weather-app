@@ -6,7 +6,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.sasaj.weatherapp.R
-import com.sasaj.weatherapp.citieslist.LocationListActivity
+import com.sasaj.weatherapp.cities.LocationListActivity
+import com.sasaj.weatherapp.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_location_detail.*
 
 /**
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_location_detail.*
  * item details are presented side-by-side with a list of items
  * in a [LocationListActivity].
  */
-class LocationDetailActivity : AppCompatActivity() {
+class LocationDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,8 @@ class LocationDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = LocationDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(LocationDetailFragment.ARG_ITEM_ID,
-                            intent.getStringExtra(LocationDetailFragment.ARG_ITEM_ID))
+                    putInt(LocationDetailFragment.ARG_CITY_ID,
+                            intent.getIntExtra(LocationDetailFragment.ARG_CITY_ID, 0))
                 }
             }
 

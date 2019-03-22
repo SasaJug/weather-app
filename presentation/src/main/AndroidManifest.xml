@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".citieslist.LocationListActivity"
+            android:name=".cities.LocationListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,11 +27,11 @@
         <activity
             android:name=".citydetails.LocationDetailActivity"
             android:label="@string/title_location_detail"
-            android:parentActivityName=".citieslist.LocationListActivity"
+            android:parentActivityName=".cities.LocationListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sasaj.weatherapp.citieslist.LocationListActivity" />
+                android:value="com.sasaj.weatherapp.cities.LocationListActivity" />
         </activity>
     </application>
 

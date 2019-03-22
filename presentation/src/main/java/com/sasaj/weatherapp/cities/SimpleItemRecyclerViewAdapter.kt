@@ -1,4 +1,4 @@
-package com.sasaj.weatherapp.citieslist
+package com.sasaj.weatherapp.cities
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,11 +24,11 @@ class SimpleItemRecyclerViewAdapter(private val parentActivity: LocationListActi
 
     init {
         onClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyContent.DummyItem
+            val city = v.tag as City
             if (twoPane) {
                 val fragment = LocationDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(LocationDetailFragment.ARG_ITEM_ID, item.id)
+                        putInt(LocationDetailFragment.ARG_CITY_ID, city.id)
                     }
                 }
                 parentActivity.supportFragmentManager
@@ -37,7 +37,7 @@ class SimpleItemRecyclerViewAdapter(private val parentActivity: LocationListActi
                         .commit()
             } else {
                 val intent = Intent(v.context, LocationDetailActivity::class.java).apply {
-                    putExtra(LocationDetailFragment.ARG_ITEM_ID, item.id)
+                    putExtra(LocationDetailFragment.ARG_CITY_ID, city.id)
                 }
                 v.context.startActivity(intent)
             }

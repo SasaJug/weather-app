@@ -1,4 +1,4 @@
-package com.sasaj.weatherapp.citieslist
+package com.sasaj.weatherapp.cities
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

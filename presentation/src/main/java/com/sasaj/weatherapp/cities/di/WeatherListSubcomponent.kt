@@ -1,6 +1,6 @@
-package com.sasaj.weatherapp.citieslist.di
+package com.sasaj.weatherapp.cities.di
 
-import com.sasaj.weatherapp.citieslist.LocationListActivity
+import com.sasaj.weatherapp.cities.LocationListActivity
 import dagger.Subcomponent
 
 @ListScope
