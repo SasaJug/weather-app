@@ -1,21 +1,19 @@
-package com.sasaj.weatherapp
+package com.sasaj.weatherapp.citieslist
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.sasaj.data.WeatherRepositoryImpl
 import com.sasaj.domain.entities.City
-import com.sasaj.domain.usecases.GetCitiesUseCase
-import com.sasaj.weatherapp.common.ASyncTransformer
+import com.sasaj.weatherapp.R
+import com.sasaj.weatherapp.WeatherApplication
 import com.sasaj.weatherapp.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_location_list.*
 import kotlinx.android.synthetic.main.location_list.*
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutCompat
-import android.support.v7.widget.LinearLayoutManager
+import javax.inject.Inject
 
 
 /**
@@ -34,7 +32,9 @@ class LocationListActivity : BaseActivity() {
      */
     private var twoPane: Boolean = false
 
+    @Inject
     lateinit var mainVMFactory: MainVMFactory
+
     private lateinit var vm: MainViewModel
     private lateinit var adapter: SimpleItemRecyclerViewAdapter
 
@@ -42,7 +42,8 @@ class LocationListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_list)
 
-        mainVMFactory = MainVMFactory(GetCitiesUseCase(ASyncTransformer(), WeatherRepositoryImpl(this)))
+        (application as WeatherApplication).createCitiesListComponent().inject(this)
+
         vm = ViewModelProviders.of(this, mainVMFactory).get(MainViewModel::class.java)
 
         vm.mainLiveData.observe(this, Observer { mainState -> handleResponse(mainState) })
@@ -75,6 +76,11 @@ class LocationListActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         vm.getCities()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as WeatherApplication).releaseCitiesListComponent()
     }
 
 

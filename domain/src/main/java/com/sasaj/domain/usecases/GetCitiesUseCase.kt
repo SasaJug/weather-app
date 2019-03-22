@@ -6,7 +6,7 @@ import com.sasaj.domain.entities.City
 import io.reactivex.Observable
 
 class GetCitiesUseCase(transformer: Transformer<List<City>>,
-                       private val weatherRepo  : WeatherRepository) : UseCase<List<City>>(transformer){
+                       val weatherRepo  : WeatherRepository) : UseCase<List<City>>(transformer){
 
 
     fun getCities() : Observable<List<City>> {

@@ -1,4 +1,4 @@
-package com.sasaj.weatherapp
+package com.sasaj.weatherapp.citieslist
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.ContentValues.TAG
@@ -7,6 +7,8 @@ import com.sasaj.domain.entities.City
 import com.sasaj.domain.usecases.GetCitiesUseCase
 import com.sasaj.weatherapp.common.BaseViewModel
 import com.sasaj.weatherapp.common.SingleLiveEvent
+import dagger.Module
+
 
 class MainViewModel(private val getCitiesUseCase: GetCitiesUseCase) : BaseViewModel() {
 

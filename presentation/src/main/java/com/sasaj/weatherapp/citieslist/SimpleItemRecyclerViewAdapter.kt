@@ -1,4 +1,4 @@
-package com.sasaj.weatherapp
+package com.sasaj.weatherapp.citieslist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sasaj.domain.entities.City
+import com.sasaj.weatherapp.citydetails.LocationDetailActivity
+import com.sasaj.weatherapp.citydetails.LocationDetailFragment
+import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.dummy.DummyContent
 import kotlinx.android.synthetic.main.location_list_content.view.*
 

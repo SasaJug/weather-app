@@ -9,14 +9,12 @@ import com.sasaj.domain.entities.City
 import io.reactivex.Observable
 
 
-class LocalRepository(val context: Context) {
-
-    private val cityToDomainMapper = CityDtoToDomainMapper()
+class LocalRepository(val context: Context, val cityDtoToDomainMapper: CityDtoToDomainMapper) {
 
     fun getCities(): Observable<List<City>> {
         val gson = Gson()
         val listType = object : TypeToken<ArrayList<CityDto>>() {}.type
         val cityDtos: List<CityDto> = gson.fromJson(cities, listType)
-        return Observable.fromIterable(cityDtos).map { cityToDomainMapper.mapFrom(it) }.toList().toObservable()
+        return Observable.fromIterable(cityDtos).map { cityDtoToDomainMapper.mapFrom(it) }.toList().toObservable()
     }
 }

@@ -5,11 +5,9 @@ import com.sasaj.domain.WeatherRepository
 import com.sasaj.domain.entities.City
 import io.reactivex.Observable
 
-class WeatherRepositoryImpl(val context: Context) : WeatherRepository {
+class WeatherRepositoryImpl(private val localRepository: LocalRepository) : WeatherRepository {
 
     override fun getCities(): Observable<List<City>> {
-        val localRepo = LocalRepository(context)
-        val citiesObservable : Observable<List<City>> = localRepo.getCities()
-        return citiesObservable
+        return localRepository.getCities()
     }
 }

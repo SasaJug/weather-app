@@ -1,4 +1,4 @@
-package com.sasaj.weatherapp
+package com.sasaj.weatherapp.citieslist
 
 import com.sasaj.domain.entities.City
 

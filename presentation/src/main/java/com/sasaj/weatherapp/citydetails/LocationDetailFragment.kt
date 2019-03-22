@@ -1,10 +1,11 @@
-package com.sasaj.weatherapp
+package com.sasaj.weatherapp.citydetails
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_location_detail.*
 import kotlinx.android.synthetic.main.location_detail.view.*
