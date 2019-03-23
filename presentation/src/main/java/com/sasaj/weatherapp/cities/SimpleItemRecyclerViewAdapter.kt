@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.citydetails.LocationDetailActivity
 import com.sasaj.weatherapp.citydetails.LocationDetailFragment
-import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.entities.CityUI
 import kotlinx.android.synthetic.main.location_list_content.view.*
 
@@ -38,6 +38,7 @@ class SimpleItemRecyclerViewAdapter(private val parentActivity: LocationListActi
                 val intent = Intent(v.context, LocationDetailActivity::class.java).apply {
                     putExtra(LocationDetailFragment.ARG_CITY, city)
                 }
+
                 v.context.startActivity(intent)
             }
         }
@@ -56,8 +57,10 @@ class SimpleItemRecyclerViewAdapter(private val parentActivity: LocationListActi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val city = cities[position]
-        holder.idView.text = city.name
-        holder.contentView.text = "${city.country}, lat: ${city.coord.lat}, lon: ${city.coord.lon}"
+        val title = "${city.name}, ${city.country}"
+        val coord = "lat: ${city.coord.lat}, lon: ${city.coord.lon}"
+        holder.idView.text = title
+        holder.contentView.text = coord
 
         with(holder.itemView) {
             tag = city

@@ -9,6 +9,7 @@ import com.sasaj.weatherapp.cities.LocationListActivity
 import com.sasaj.weatherapp.common.BaseActivity
 import com.sasaj.weatherapp.entities.CityUI
 import kotlinx.android.synthetic.main.activity_location_detail.*
+import kotlinx.android.synthetic.main.notification_template_lines_media.view.*
 
 /**
  * An activity representing a single Location detail screen. This
@@ -65,15 +66,14 @@ class LocationDetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
                 android.R.id.home -> {
-                    // This ID represents the Home or Up button. In the case of this
-                    // activity, the Up button is shown. For
-                    // more details, see the Navigation pattern on Android Design:
-                    //
-                    // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
-                    navigateUpTo(Intent(this, LocationListActivity::class.java))
+                    finish()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
             }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 }
