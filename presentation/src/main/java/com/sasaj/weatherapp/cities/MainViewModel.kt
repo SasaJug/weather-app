@@ -6,10 +6,11 @@ import android.util.Log
 import com.sasaj.domain.entities.City
 import com.sasaj.domain.usecases.GetCitiesUseCase
 import com.sasaj.weatherapp.common.BaseViewModel
+import com.sasaj.weatherapp.common.CityDomainToUIMapper
 import com.sasaj.weatherapp.common.SingleLiveEvent
 
 
-class MainViewModel(private val getCitiesUseCase: GetCitiesUseCase) : BaseViewModel() {
+class MainViewModel(private val getCitiesUseCase: GetCitiesUseCase, private val cityDomainToUIMapper: CityDomainToUIMapper) : BaseViewModel() {
 
     val mainLiveData: MutableLiveData<MainViewState> = MutableLiveData()
     var errorState: SingleLiveEvent<Throwable?> = SingleLiveEvent()
@@ -25,7 +26,8 @@ class MainViewModel(private val getCitiesUseCase: GetCitiesUseCase) : BaseViewMo
         addDisposable(getCitiesUseCase.getCities()
                 .subscribe(
                         { list: List<City> ->
-                            val newMainViewState = mainLiveData.value?.copy(state = MainViewState.CITIES_LOADED, citiesList = list)
+                            val mappedList = list.map { city -> cityDomainToUIMapper.mapFrom(city) }
+                            val newMainViewState = mainLiveData.value?.copy(state = MainViewState.CITIES_LOADED, citiesList = mappedList)
                             mainLiveData.value = newMainViewState
                             errorState.value = null
                         },

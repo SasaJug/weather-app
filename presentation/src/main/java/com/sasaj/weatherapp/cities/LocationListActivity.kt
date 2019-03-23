@@ -11,6 +11,7 @@ import com.sasaj.domain.entities.City
 import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.WeatherApplication
 import com.sasaj.weatherapp.common.BaseActivity
+import com.sasaj.weatherapp.entities.CityUI
 import kotlinx.android.synthetic.main.activity_location_list.*
 import kotlinx.android.synthetic.main.location_list.*
 import javax.inject.Inject
@@ -57,7 +58,7 @@ class LocationListActivity : BaseActivity() {
         toolbar.title = title
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Add new place - not implemented", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
@@ -92,7 +93,7 @@ class LocationListActivity : BaseActivity() {
     }
 
 
-    private fun renderShowList(list: List<City>?) {
+    private fun renderShowList(list: List<CityUI>?) {
         adapter.setCities(list!!)
         hideProgress()
     }

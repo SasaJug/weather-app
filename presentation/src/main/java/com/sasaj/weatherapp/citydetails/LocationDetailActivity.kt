@@ -1,13 +1,13 @@
 package com.sasaj.weatherapp.citydetails
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.cities.LocationListActivity
 import com.sasaj.weatherapp.common.BaseActivity
+import com.sasaj.weatherapp.entities.CityUI
 import kotlinx.android.synthetic.main.activity_location_detail.*
 
 /**
@@ -18,19 +18,17 @@ import kotlinx.android.synthetic.main.activity_location_detail.*
  */
 class LocationDetailActivity : BaseActivity() {
 
+    private lateinit var city: CityUI
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_detail)
         setSupportActionBar(detail_toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        city = intent.getParcelableExtra(LocationDetailFragment.ARG_CITY) as CityUI
+        supportActionBar?.title = "${city.name}, ${city.country}"
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -43,10 +41,10 @@ class LocationDetailActivity : BaseActivity() {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
+
             val fragment = LocationDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(LocationDetailFragment.ARG_CITY_ID,
-                            intent.getIntExtra(LocationDetailFragment.ARG_CITY_ID, 0))
+                    putParcelable(LocationDetailFragment.ARG_CITY, city)
                 }
             }
 
@@ -54,6 +52,14 @@ class LocationDetailActivity : BaseActivity() {
                     .add(R.id.location_detail_container, fragment)
                     .commit()
         }
+
+        fab.setOnClickListener { _ ->
+            val url = "https://openweathermap.org/city/${city.id}"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =

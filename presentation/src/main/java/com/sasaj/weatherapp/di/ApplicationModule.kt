@@ -10,6 +10,7 @@ import com.sasaj.data.httpclient.RetrofitClient
 import com.sasaj.data.mappers.CityDtoToDomainMapper
 import com.sasaj.domain.NetworkManager
 import com.sasaj.domain.WeatherRepository
+import com.sasaj.weatherapp.common.CityDomainToUIMapper
 import com.sasaj.weatherapp.common.NetworkManagerImpl
 import dagger.Module
 import dagger.Provides
@@ -46,6 +47,12 @@ class ApplicationModule(private val context: Context) {
     @Singleton
     fun provideLocationDtoToDomainMapper(): LocationDtoToDomainMapper {
         return  LocationDtoToDomainMapper()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCityDomainToUIMapper(): CityDomainToUIMapper{
+        return  CityDomainToUIMapper()
     }
 
     @Provides

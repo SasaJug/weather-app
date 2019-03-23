@@ -4,12 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sasaj.weatherapp.R
 import com.sasaj.weatherapp.WeatherApplication
+import com.sasaj.weatherapp.entities.CityUI
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.location_detail.*
 import javax.inject.Inject
 
@@ -26,9 +27,11 @@ class LocationDetailFragment : Fragment() {
     lateinit var detailsVMFactory: DetailsVMFactory
 
     /**
-     * The dummy content this fragment is presenting.
+     * The city this fragment is presenting.
      */
-    private var cityId: Int?= null
+    private var city: CityUI? = null
+
+    private var screenDensity: Float? = 0.0f
 
     private lateinit var vmWeatherDetails: DetailsViewModel
 
@@ -40,12 +43,8 @@ class LocationDetailFragment : Fragment() {
         vmWeatherDetails = ViewModelProviders.of(this, detailsVMFactory).get(DetailsViewModel::class.java)
 
         arguments?.let {
-            if (it.containsKey(ARG_CITY_ID)) {
-                // Load the dummy content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-                cityId = it.getInt(ARG_CITY_ID)
-//                activity?.toolbar_layout?.title = item?.content
+            if (it.containsKey(ARG_CITY)) {
+                city = it.getParcelable(ARG_CITY)
             }
         }
     }
@@ -58,22 +57,18 @@ class LocationDetailFragment : Fragment() {
         vmWeatherDetails.errorState.observe(this, Observer { throwable ->
             throwable?.let { handleError(throwable) }
         })
+        screenDensity = activity?.resources?.displayMetrics?.density
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        // Show the dummy content as text in a TextView.
-//        item?.let {
-//            rootView.location_detail.text = it.details
-//        }
 
         return inflater.inflate(R.layout.location_detail, container, false)
     }
 
     override fun onResume() {
         super.onResume()
-        cityId?.let { vmWeatherDetails.getWeather(cityId!!) }
+        city?.let { vmWeatherDetails.getWeather(city!!.id) }
 
     }
 
@@ -87,7 +82,17 @@ class LocationDetailFragment : Fragment() {
             showProgress(true)
         else if (detailsViewState.state == DetailsViewState.WEATHER_LOADED) {
             showProgress(false)
-            weather_detail.text = detailsViewState.weather.toString()
+            val weather = detailsViewState.weather
+            val iconSize = 48 * screenDensity!!
+            weather?.let {
+                Picasso.get().load(weather.iconUri).resize(iconSize.toInt(), iconSize.toInt()).centerCrop().into(weatherIcon)
+                title.text = weather.main
+                description.text = weather.description
+                temperature.text = "${weather.temperature} °C"
+                pressure.text = "${weather.pressure} hPa"
+                wind.text = "${weather.windSpeed} m/s"
+                humidity.text = "${weather.humidity} %"
+            }
         }
     }
 
@@ -103,7 +108,7 @@ class LocationDetailFragment : Fragment() {
             loadingProgress.visibility = View.GONE
     }
 
-    private fun renderError(throwable: Throwable?){
+    private fun renderError(throwable: Throwable?) {
         (activity as LocationDetailActivity).showDialogMessage(throwable?.message, throwable.toString())
     }
 
@@ -113,6 +118,6 @@ class LocationDetailFragment : Fragment() {
          * represents.
          */
         val TAG = LocationDetailFragment::class.java.simpleName
-        const val ARG_CITY_ID = "city_id"
+        const val ARG_CITY = "city"
     }
 }
