@@ -1,0 +1,35 @@
+{
+  "coord": {
+    "lon": 18.36,
+    "lat": 43.85
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01n"
+    }
+  ],
+  "base": "stations",
+  "visibility": 10000,
+  "wind": {
+    "speed": 1,
+    "deg": 180
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1553378400,
+  "sys": {
+    "type": 1,
+    "id": 6906,
+    "message": 0.0043,
+    "country": "BA",
+    "sunrise": 1553316311,
+    "sunset": 1553360476
+  },
+  "id": 3191281,
+  "name": "Sarajevo",
+  "cod": 200
+}

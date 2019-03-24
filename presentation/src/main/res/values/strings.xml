@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="title_location_detail">Location Detail</string>
+    <string name="temperature_title">Temperature</string>
+    <string name="pressure_title">Pressure</string>
+    <string name="wind_title">Wind</string>
+    <string name="humidity_title">Humidity</string>
 </resources>

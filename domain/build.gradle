@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.dokka-android'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -8,12 +9,16 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
 
     //Mockito
-    testImplementation "org.mockito:mockito-core:$rootProject.MockitoVersion"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
 
     //JUnit
-    testImplementation "junit:junit:$rootProject.JUnitVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
 }
 repositories {
     mavenCentral()
+}
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
 }
 

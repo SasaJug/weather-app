@@ -1,9 +1,10 @@
-package com.sasaj.weatherapp.citieslist.di
+package com.sasaj.weatherapp.cities.di
 
 import com.sasaj.domain.WeatherRepository
 import com.sasaj.domain.usecases.GetCitiesUseCase
-import com.sasaj.weatherapp.citieslist.MainVMFactory
+import com.sasaj.weatherapp.cities.MainVMFactory
 import com.sasaj.weatherapp.common.ASyncTransformer
+import com.sasaj.weatherapp.common.CityDomainToUIMapper
 import dagger.Module
 import dagger.Provides
 
@@ -18,7 +19,7 @@ class WeatherListModule {
 
     @Provides
     @ListScope
-    fun provideMainVMFactory(getCitiesUseCase: GetCitiesUseCase): MainVMFactory {
-        return MainVMFactory(getCitiesUseCase)
+    fun provideMainVMFactory(getCitiesUseCase: GetCitiesUseCase, cityDomainToUIMapper: CityDomainToUIMapper): MainVMFactory {
+        return MainVMFactory(getCitiesUseCase, cityDomainToUIMapper)
     }
 }
