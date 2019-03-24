@@ -21,12 +21,12 @@ import org.mockito.junit.MockitoJUnit
 @RunWith(JUnit4::class)
 open class RemoteRepositoryTest {
 
-    val mainField = "Clear"
-    val description = "Clear sky"
-    val temperature = 15.5
-    val pressure = 1024.44
-    val humidity = 45.5
-    val windspeed = 12.4
+    private val mainField = "Clear"
+    private val description = "Clear sky"
+    private val temperature = 15.5
+    private val pressure = 1024.44
+    private val humidity = 45.5
+    private val windspeed = 12.4
 
     @get:Rule
     var rule = MockitoJUnit.rule()
@@ -57,6 +57,8 @@ open class RemoteRepositoryTest {
         val testObserver = TestObserver<com.sasaj.domain.entities.Weather>()
         remoteRepository.getWeather(111).subscribe(testObserver)
 
+        testObserver.assertValue{w -> w.main == "Clear"}
+        testObserver.assertNoErrors()
         testObserver.assertComplete()
     }
 

@@ -1,8 +1,6 @@
 package com.sasaj.weatherapp.citydetails
 
 import android.arch.lifecycle.MutableLiveData
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.sasaj.domain.entities.Weather
 import com.sasaj.domain.usecases.GetWeatherForCityUseCase
 import com.sasaj.weatherapp.common.BaseViewModel
@@ -32,9 +30,8 @@ class DetailsViewModel(private val getWeatherForCityUseCase: GetWeatherForCityUs
                         { e ->
                             errorState.value = e
                         },
-                        { Log.i(TAG, "WeatherDto data fetched") }
+                        { }
                 )
         )
     }
-
 }

@@ -1,8 +1,8 @@
 package com.sasaj.domain.entities
 
 /**
- * Class containing latilude and longitude of a {@link com.sasaj.domain.entities.Location}
- * @param lat lattitude
+ * Class containing latitude and longitude of a [City]
+ * @param lat latitude
  * @param lon longitude
  */
 data class Coord(

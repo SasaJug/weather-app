@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
@@ -33,6 +34,7 @@ class RetrofitClientTest {
 
         // Get an okhttp client
         val okHttpClient = OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .build()
 
         // Get an instance of Retrofit
@@ -53,7 +55,7 @@ class RetrofitClientTest {
     }
 
     @Test
-    fun getWeather() {
+    fun getWeatherHappyFlow() {
         val testObserver = TestObserver<LocationDto>()
 
         // Mock a response with status 200 and sample JSON output
@@ -76,7 +78,26 @@ class RetrofitClientTest {
         // Get the request that was just made
         val request = mockServer.takeRequest()
         // Make sure we made the request to the required path
-        Assert.assertEquals("/data/2.5/weatherDto?id=1&units=metric&lang=en&appid=123", request.path)
+        Assert.assertEquals("/data/2.5/weather?id=1&units=metric&lang=en&appid=123", request.path)
+    }
+
+
+    @Test
+    fun getWeatherServerError() {
+        val testObserver = TestObserver<LocationDto>()
+
+        // Mock a response with status 200 and sample JSON output
+        val mockResponse = MockResponse()
+                .setResponseCode(500)
+
+        // Enqueue request
+        mockServer.enqueue(mockResponse)
+
+        // Call the API
+        weatherService.getWeatherForCityId(1,"metric","en", "123").subscribe(testObserver)
+        testObserver.awaitTerminalEvent(2, TimeUnit.SECONDS)
+
+        testObserver.assertError(Exception::class.java)
     }
 
     /**

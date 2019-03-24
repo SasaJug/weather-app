@@ -16,12 +16,12 @@ package com.sasaj.domain.entities
 
 data class Weather (
 
-        val main : String,
-        val description : String,
-        val temperature : String,
-        val windSpeed : String,
-        val humidity : String,
-        val pressure: String,
-        val iconUri : String
+        val main : String = "N/A",
+        val description : String = "N/A",
+        val temperature : String = "N/A",
+        val windSpeed : String = "N/A",
+        val humidity : String = "N/A",
+        val pressure: String = "N/A",
+        val iconUri : String = "N/A"
 
 )

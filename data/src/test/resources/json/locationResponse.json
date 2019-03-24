@@ -12,13 +12,6 @@
     }
   ],
   "base": "stations",
-  "main": {
-    "temp": 5.52,
-    "pressure": 1025.5,
-    "humidity": 93.5,
-    "temp_min": 5,
-    "temp_max": 6
-  },
   "visibility": 10000,
   "wind": {
     "speed": 1,
