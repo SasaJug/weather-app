@@ -1,6 +1,6 @@
 package com.sasaj.data.entities
 
-data class Main(
+data class MainDto(
         val humidity: Double,
         val pressure: Double,
         val temp: Double,

@@ -1,6 +1,6 @@
 package com.sasaj.data.httpclient
 
-import com.sasaj.data.entities.Location
+import com.sasaj.data.entities.LocationDto
 import com.sasaj.domain.entities.Weather
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -14,9 +14,5 @@ interface OWMService {
     fun getWeatherForCityId(@Query("id") cityId: Int,
                             @Query("units") units: String,
                             @Query("lang") language: String,
-                            @Query("appid") apiKey : String): Single<Location>
-
-
-    @GET("img/w/{iconId}")
-    fun getIcon(@Path("iconId") iconId: String): Single<Weather>
+                            @Query("appid") apiKey : String): Single<LocationDto>
 }

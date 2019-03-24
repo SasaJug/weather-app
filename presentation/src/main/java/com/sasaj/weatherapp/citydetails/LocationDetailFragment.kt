@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.location_detail.*
 import javax.inject.Inject
 
 /**
- * A fragment representing a single Location detail screen.
+ * A fragment representing a single LocationDto detail screen.
  * This fragment is either contained in a [LocationListActivity]
  * in two-pane mode (on tablets) or a [LocationDetailActivity]
  * on handsets.

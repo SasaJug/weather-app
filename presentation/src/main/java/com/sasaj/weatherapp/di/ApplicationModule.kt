@@ -6,14 +6,21 @@ import com.sasaj.data.LocalRepository
 import com.sasaj.data.RemoteRepository
 import com.sasaj.data.WeatherRepositoryImpl
 import com.sasaj.data.common.LocationDtoToDomainMapper
+import com.sasaj.data.httpclient.OWMService
 import com.sasaj.data.httpclient.RetrofitClient
+import okhttp3.logging.HttpLoggingInterceptor
 import com.sasaj.data.mappers.CityDtoToDomainMapper
 import com.sasaj.domain.NetworkManager
 import com.sasaj.domain.WeatherRepository
+import com.sasaj.weatherapp.BuildConfig
 import com.sasaj.weatherapp.common.CityDomainToUIMapper
 import com.sasaj.weatherapp.common.NetworkManagerImpl
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -57,8 +64,34 @@ class ApplicationModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): RetrofitClient {
-        return  RetrofitClient()
+    fun provideOkhttpClient(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return  OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit {
+        return  Retrofit.Builder().baseUrl(BuildConfig.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOpenWeatherMapService(retrofit: Retrofit) : OWMService {
+        return  retrofit.create(OWMService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(owmService: OWMService): RetrofitClient {
+        return  RetrofitClient(owmService, BuildConfig.API_KEY)
     }
 
     @Provides

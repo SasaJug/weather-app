@@ -1,6 +1,6 @@
 package com.sasaj.data.entities
 
-data class Sys(
+data class SysDto(
         val country: String,
         val id: Int,
         val message: Double,

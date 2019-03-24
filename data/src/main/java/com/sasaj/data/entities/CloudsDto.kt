@@ -1,5 +1,5 @@
 package com.sasaj.data.entities
 
-data class Clouds(
+data class CloudsDto(
         val all: Int
 )

@@ -32,7 +32,7 @@ class DetailsViewModel(private val getWeatherForCityUseCase: GetWeatherForCityUs
                         { e ->
                             errorState.value = e
                         },
-                        { Log.i(TAG, "Weather data fetched") }
+                        { Log.i(TAG, "WeatherDto data fetched") }
                 )
         )
     }

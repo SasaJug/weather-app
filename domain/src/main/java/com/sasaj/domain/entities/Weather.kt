@@ -1,27 +1,27 @@
 package com.sasaj.domain.entities
 
+
+/**
+ * Data class which collects all weather data from the response relevant in the application.
+ *
+ * @param main main weather characteristic
+ * @param description more detailed description of weather conditions
+ * @param temperature temperature in specified units, default Kelvin
+ * @param windSpeed wind speed in m/s
+ * @param humidity humidity in %
+ * @param pressure atmospheric pressure in hPa
+ * @param iconUri url of the .png file of icon for current weather conditions, <a href= "http://openweathermap.org/img/w/10d.png">example : http://openweathermap.org/img/w/10d.png </a>
+ *
+ */
+
 data class Weather (
 
-        //Main weather characteristic in specified language, default English
         val main : String,
-
-        //Description in specified language, default English
         val description : String,
-
-        //Temperature in specified units, default Kelvin
         val temperature : String,
-
-        //Wind speed in m/s
         val windSpeed : String,
-
-        //Humidity in %
         val humidity : String,
-
-        //Atmospheric pressure in hPa
         val pressure: String,
-
-        //Link to the icon representing current weather and time of day
-        //Example: http://openweathermap.org/img/w/10d.png
         val iconUri : String
 
 )
