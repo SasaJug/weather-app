@@ -21,7 +21,7 @@ class LocalRepository(val context: Context, private val cityDtoToDomainMapper: C
     }
 
     override fun getWeather(cityId: Int): Observable<Weather> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("Implement local in-memory cache with 5 minutes validity")
     }
 
 }

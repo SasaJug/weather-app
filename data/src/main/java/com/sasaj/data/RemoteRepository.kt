@@ -10,7 +10,7 @@ import io.reactivex.Observable
 class RemoteRepository(private val httpClient: RetrofitClient, private val locationDtoToDomainMapper: LocationDtoToDomainMapper) : WeatherRepository {
 
     override fun getCities(): Observable<List<City>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("Implement fetching locations from remote service.") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getWeather(cityId: Int): Observable<Weather> {
