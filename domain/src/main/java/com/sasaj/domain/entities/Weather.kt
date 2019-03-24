@@ -9,16 +9,16 @@ data class Weather (
         val description : String,
 
         //Temperature in specified units, default Kelvin
-        val temperature : Double,
+        val temperature : String,
 
         //Wind speed in m/s
-        val windSpeed : Double,
+        val windSpeed : String,
 
         //Humidity in %
-        val humidity : Int,
+        val humidity : String,
 
         //Atmospheric pressure in hPa
-        val pressure: Int,
+        val pressure: String,
 
         //Link to the icon representing current weather and time of day
         //Example: http://openweathermap.org/img/w/10d.png

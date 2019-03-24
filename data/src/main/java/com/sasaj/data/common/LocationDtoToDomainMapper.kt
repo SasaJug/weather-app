@@ -9,10 +9,10 @@ class LocationDtoToDomainMapper : Mapper<Location, Weather>() {
         return Weather(
                 from.weather[0].main,
                 from.weather[0].description,
-                from.main.temp,
-                from.wind.speed,
-                from.main.humidity,
-                from.main.pressure,
+                from.main.temp.toString(),
+                from.wind.speed.toString(),
+                from.main.humidity.toString(),
+                from.main.pressure.toString(),
                 "http://openweathermap.org/img/w/"+from.weather[0].icon+".png"
         )
     }
