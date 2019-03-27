@@ -1,6 +1,7 @@
 package com.sasaj.data
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sasaj.data.entities.CityDto
@@ -11,7 +12,9 @@ import com.sasaj.domain.entities.Weather
 import io.reactivex.Observable
 
 
-class LocalRepository(val context: Context, private val cityDtoToDomainMapper: CityDtoToDomainMapper) : WeatherRepository{
+class LocalRepository(val context: Context, private val cityDtoToDomainMapper: CityDtoToDomainMapper) : WeatherRepository {
+
+    private val cache: HashMap<Int, Pair<Long, Weather>> = hashMapOf()
 
     override fun getCities(): Observable<List<City>> {
         val gson = Gson()
@@ -21,7 +24,26 @@ class LocalRepository(val context: Context, private val cityDtoToDomainMapper: C
     }
 
     override fun getWeather(cityId: Int): Observable<Weather> {
-        TODO("Implement local in-memory cache with 5 minutes validity")
+        val cachedWeather = cache[cityId]
+        return if (cachedWeather != null) {
+            Observable.just(cachedWeather)
+                    .filter { cached -> System.currentTimeMillis() - cached.first < cacheValidityPeriod }
+                    .map { cached -> cached.second }
+                    .doOnNext{ weather -> Log.i(TAG, "From cache : $weather")}
+        } else {
+            Observable.empty<Weather>()
+        }
     }
+
+    fun saveWeather(cityId: Int, weather: Weather) {
+        cache[cityId] = Pair(System.currentTimeMillis(), weather)
+    }
+
+    companion object {
+
+        const val cacheValidityPeriod = 1000 * 60 * 5
+        const val TAG = "LocalRepository"
+    }
+
 
 }
