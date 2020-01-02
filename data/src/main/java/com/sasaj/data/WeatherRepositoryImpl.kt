@@ -14,6 +14,10 @@ class WeatherRepositoryImpl(private val localRepository: LocalRepository,
     }
 
     override fun getWeather(cityId : Int): Observable<Weather> {
-        return remoteRepository.getWeather(cityId)
+         return Observable.concat(
+                 localRepository.getWeather(cityId),
+                 remoteRepository.getWeather(cityId).doOnNext{weather -> localRepository.saveWeather(cityId, weather)})
+                 .take(1)
     }
+
 }

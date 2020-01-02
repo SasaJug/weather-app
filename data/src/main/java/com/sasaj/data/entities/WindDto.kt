@@ -1,6 +1,6 @@
 package com.sasaj.data.entities
 
 data class WindDto(
-        val deg: Int,
+        val deg: Double,
         val speed: Double
 )

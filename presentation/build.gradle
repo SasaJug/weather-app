@@ -15,7 +15,7 @@ android {
         versionName  rootProject.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_URL", '"http://api.openweathermap.org/"')
+        buildConfigField("String", "API_URL", '"https://api.openweathermap.org/"')
         buildConfigField("String", "API_KEY", '"c3bf51c56cba5ad1582ef63851aee28d"')
     }
     buildTypes {
